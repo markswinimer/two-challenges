@@ -1,12 +1,15 @@
 import React from 'react';
-import CoinFlip from './CoinFlip'
+import CoinFlip from './CoinFlip';
+import ColorGrid from './ColorGrid';
 import './App.css';
 
 
 function App() {
   return (
     <div className="App">
-      <CoinFlip />
+      {/* Two Challenges */}
+      {/* <CoinFlip /> */}
+      <ColorGrid />
     </div>
   );
 }
