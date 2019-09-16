@@ -3,30 +3,32 @@ import "./ColorBox.css"
 
 class ColorBox extends Component {
   static defaultProps = {
-    1: "#CCF390",
-    2: "#E0E05A",
-    3: "#F7C41F",
-    4: "#FC930A",
-    5: "#FF003D",
-    6: "#CDECCC",
-    7: "#EDD269",
-    8: "#E88460",
-    9: "#F23460",
+    colors: ["#CCF390", "#E0E05A", "#F7C41F", "#FC930A", "#FF003D", "#CDECCC", "#EDD269", "#E88460","#F23460"]
   }
   constructor(props) {
     super(props);
     this.state = {
-      color: "gray"
+      color: this.props.colors[Math.floor(Math.random() * 8)]
     }
+    this.randomizeColor = this.randomizeColor.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  randomizeColor() {
+    this.setState({ color: this.props.colors[Math.floor(Math.random() * 8)] })
+  }
+
+  handleClick() {
+      this.randomizeColor();
   }
 
   render() {
     const style = {
-      color: this.state.color
+      backgroundColor: this.state.color
     }
 
     return(
-      <div style={style} className="ColorBox">HIHI</div>
+      <div style={style} onClick={this.handleClick} className="ColorBox"></div>
     )
   }
 }

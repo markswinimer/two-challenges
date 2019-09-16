@@ -1,6 +1,12 @@
 .ColorBox {
   width: 150px;
   height: 150px;
-  border: 1px solid red;
   /* background-color: red; */
+}
+
+.ColorBoxes {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  flex-flow: wrap;
 }

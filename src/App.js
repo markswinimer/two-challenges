@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       {/* Two Challenges */}
-      {/* <CoinFlip /> */}
+      <CoinFlip />
       <ColorGrid />
     </div>
   );
