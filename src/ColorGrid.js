@@ -3,23 +3,19 @@ import ColorBox from './ColorBox';
 import "./ColorGrid";
 
 class ColorGrid extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      boxAmount: 21
-    }
+  static defaultProps = {
+    numBoxes: 21,
+    colors: ["#CCF390", "#E0E05A", "#F7C41F", "#FC930A", "#FF003D", "#CDECCC", "#EDD269", "#E88460","#F23460"]
   }
+
   render() {
-    let i = 0;
-    let grid = [];
-    for(i = 0; i < this.state.boxAmount; i++) {
-      grid.push(<ColorBox />)
-    }
+    const colorBoxes = Array.from({ length: this.props.numBoxes }).map( () => (<ColorBox colors={this.props.colors}/>));
+
     return(
       <div className="ColorGrid">
         <h1>Color Grid</h1>
         <div className="ColorBoxes">
-          {grid}
+          {colorBoxes}
         </div>
       </div>
     )
