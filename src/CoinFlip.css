@@ -16,3 +16,9 @@
   background-color: silver;
   color: gray;
 }
+
+.CoinFlip {
+  padding: 1%;
+  border-radius: 10px;
+  background-color: white;
+}

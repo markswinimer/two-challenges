@@ -1,35 +1,42 @@
 import React, { Component } from 'react';
-import Coin from './Coin'
+import Coin from './Coin';
+import { choice } from "./helpers";
 import './CoinFlip.css'
 
 class CoinFlip extends Component {
+  static defaultProps = {
+    coins: [
+      { side: "heads", imgSrc: "https://tinyurl.com/react-coin-heads-jpg" },
+      { side: "tails", imgSrc: "https://tinyurl.com/react-coin-tails-jpg" }
+    ]
+  }
   constructor(props) {
     super(props);
     this.state = {
+      currCoin: null,
       isTails: 0,
-      flipTotal: 0,
-      headsTotal: 0,
-      tailsTotal: 0,
-      flipDelay: false
+      nFlips: 0,
+      nHeads: 0,
+      nTails: 0,
+      flipDisabled: false
     }
     this.handleClick = this.handleClick.bind(this);
     this.flipCoin = this.flipCoin.bind(this);
   }
 
   flipCoin() {
-    let newState = this.state;
-
-    newState.flipTotal++;
-    newState.isTails = Math.floor(Math.random() * 2);
-    if(newState.isTails) {
-      newState.tailsTotal++
-    } else {
-      newState.headsTotal++
-    }
-    newState.flipDelay = true;
-    this.setState({ newState });
+    const newCoin = choice(this.props.coins);
+    this.setState(st => {
+      return {
+        currCoin: newCoin,
+        nFlips: st.nFlips + 1,
+        nHeads: st.nHeads + (newCoin.side === "heads" ? 1 : 0),
+        nTails: st.nTails + (newCoin.side === "tails" ? 1 : 0),
+        flipDisabled: true
+      }
+    })
     setTimeout(() => {
-      this.setState({ flipDelay: false })
+      this.setState({ flipDisabled: false })
     }, 800)
   }
 
@@ -39,13 +46,13 @@ class CoinFlip extends Component {
 
   render() {
     return(
-      <div>
+      <div className="CoinFlip">
         <h1>Coin Flip</h1>
-        <Coin isTails={this.state.isTails}/>
+        {this.state.currCoin && <Coin info={this.state.currCoin} />}
 
-        <button disabled={this.state.flipDelay} onClick={this.handleClick} className="CoinFlipButton">Flip</button>
+        <button disabled={this.state.flipDisabled} onClick={this.handleClick} className="CoinFlipButton">Flip</button>
 
-        <h2>Total Flips: {this.state.flipTotal}. Heads: {this.state.headsTotal} Tails: {this.state.tailsTotal}</h2>
+        <h2>Total Flips: {this.state.nFlips}. Heads: {this.state.nHeads} Tails: {this.state.nTails}</h2>
       </div>
     )
   }
